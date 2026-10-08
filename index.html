@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== GREETING SECTION ===== -->
+  <header class="greeting-section">
+
+    <!-- Theme toggle -->
+    <button class="btn-theme-toggle" id="btn-theme-toggle" aria-label="Ganti tema terang/gelap" title="Ganti tema">
+      <span class="icon-dark" aria-hidden="true">🌙</span>
+      <span class="icon-light" aria-hidden="true">☀️</span>
+    </button>
+
+    <div class="greeting-inner">
+      <!-- Klik nama untuk edit -->
+      <p id="greeting-text" class="greeting-text">Selamat Datang!</p>
+      <button class="btn-edit-name" id="btn-edit-name" title="Ubah nama">
+        <span aria-hidden="true">✏️</span>
+        <span class="sr-only">Ubah nama</span>
+      </button>
+      <time id="current-time" class="current-time" aria-live="polite">00:00:00</time>
+      <p id="current-date" class="current-date"></p>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="dashboard">
+
+    <!-- ===== FOCUS TIMER ===== -->
+    <section class="card timer-card" aria-labelledby="timer-heading">
+      <h2 class="card-title" id="timer-heading">
+        <span aria-hidden="true">⏱</span> Focus Timer
+      </h2>
+      <output id="timer-display" class="timer-display" aria-live="off">25:00</output>
+      <p class="timer-label" id="timer-label" aria-live="polite">Siap fokus?</p>
+      <div class="timer-controls" role="group" aria-label="Kontrol timer">
+        <button class="btn btn-primary" id="btn-start">Start</button>
+        <button class="btn btn-secondary" id="btn-stop">Stop</button>
+        <button class="btn btn-ghost" id="btn-reset">Reset</button>
+      </div>
+      <!-- Atur durasi pomodoro -->
+      <div class="timer-duration-row" role="group" aria-label="Atur durasi">
+        <label for="pomodoro-duration" class="timer-duration-label">Durasi (menit):</label>
+        <input type="number" id="pomodoro-duration" class="text-input timer-duration-input"
+               min="1" max="99" value="25" aria-label="Durasi pomodoro dalam menit" />
+        <button class="btn btn-ghost btn-sm" id="btn-set-duration">Set</button>
+      </div>
+    </section>
+
+    <!-- ===== TO-DO LIST ===== -->
+    <section class="card todo-card" aria-labelledby="todo-heading">
+      <h2 class="card-title" id="todo-heading">
+        <span aria-hidden="true">✅</span> To-Do List
+      </h2>
+      <div class="todo-input-row" role="group" aria-label="Tambah tugas">
+        <label for="todo-input" class="sr-only">Tugas baru</label>
+        <input type="text" id="todo-input" class="text-input" placeholder="Tambah tugas baru..." maxlength="120" autocomplete="off" />
+        <button class="btn btn-primary" id="btn-add-todo">Tambah</button>
+      </div>
+      <ul class="todo-list" id="todo-list" aria-label="Daftar tugas"></ul>
+      <p class="todo-empty" id="todo-empty" aria-live="polite">Belum ada tugas. Tambahkan di atas!</p>
+    </section>
+
+    <!-- ===== QUICK LINKS ===== -->
+    <section class="card links-card" aria-labelledby="links-heading">
+      <h2 class="card-title" id="links-heading">
+        <span aria-hidden="true">🔗</span> Quick Links
+      </h2>
+      <div class="links-input-row" role="group" aria-label="Tambah link">
+        <label for="link-name-input" class="sr-only">Nama link</label>
+        <input type="text" id="link-name-input" class="text-input" placeholder="Label (cth. YouTube)" maxlength="30" autocomplete="off" />
+        <label for="link-url-input" class="sr-only">URL link</label>
+        <input type="url" id="link-url-input" class="text-input" placeholder="URL (cth. https://youtube.com)" autocomplete="off" />
+        <button class="btn btn-primary" id="btn-add-link">Tambah</button>
+      </div>
+      <nav id="links-grid" class="links-grid" aria-label="Quick links tersimpan"></nav>
+      <p class="todo-empty" id="links-empty" aria-live="polite">Belum ada link tersimpan.</p>
+    </section>
+
+  </main>
+
+  <!-- ===== EDIT TASK MODAL ===== -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <article class="modal">
+      <h3 class="modal-title" id="modal-title">Edit Tugas</h3>
+      <label for="modal-input" class="sr-only">Teks tugas</label>
+      <input type="text" id="modal-input" class="text-input" maxlength="120" />
+      <footer class="modal-actions">
+        <button class="btn btn-primary" id="btn-modal-save">Simpan</button>
+        <button class="btn btn-ghost" id="btn-modal-cancel">Batal</button>
+      </footer>
+    </article>
+  </div>
+
+  <!-- ===== EDIT NAME MODAL ===== -->
+  <div class="modal-overlay" id="name-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="name-modal-title">
+    <article class="modal">
+      <h3 class="modal-title" id="name-modal-title">Ubah Nama</h3>
+      <label for="name-modal-input" class="sr-only">Nama kamu</label>
+      <input type="text" id="name-modal-input" class="text-input" placeholder="Masukkan namamu..." maxlength="30" autocomplete="given-name" />
+      <footer class="modal-actions">
+        <button class="btn btn-primary" id="btn-name-save">Simpan</button>
+        <button class="btn btn-ghost" id="btn-name-cancel">Batal</button>
+      </footer>
+    </article>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Set up test infrastructure": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480744015
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480755359
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481159418
+      }
+    ],
+    "2.1 Audit `index.html` against design DOM dependencies": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480744266
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481163032
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481226342
+      }
+    ],
+    "2.2 Fix any HTML gaps found during the audit": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480744442
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481244130
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481303977
+      }
+    ],
+    "3.1 Audit CSS against design component list": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480744633
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481168126
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481232154
+      }
+    ],
+    "3.2 Fix any CSS gaps found during the audit": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480744788
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481247579
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481307628
+      }
+    ],
+    "4.1 Verify / implement `storageGet` and `storageSet`": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480744893
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481171749
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481235875
+      }
+    ],
+    "4.3 Verify / implement `uid` and `sanitise`": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480744990
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481177384
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481239813
+      }
+    ],
+    "5.1 Verify / implement real-time clock and date display": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480745113
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481250965
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481311611
+      }
+    ],
+    "5.2 Verify / implement time-based greeting logic (`getGreeting`)": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480745221
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481331804
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481839885
+      }
+    ],
+    "6.1 Verify / implement timer state variables and `render()`": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480745324
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481335587
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481843939
+      }
+    ],
+    "6.3 Verify / implement `tick()` and Start / Stop / Reset event handlers": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480745446
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481857130
+      }
+    ],
+    "7. Checkpoint — Ensure timer and clock tests pass": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480745553
+      }
+    ],
+    "8.1 Verify / implement `addTodo()` and input validation": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480745672
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481339144
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481847655
+      }
+    ],
+    "8.4 Verify / implement `render()` for the to-do list": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480745799
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481860890
+      }
+    ],
+    "8.6 Verify / implement the edit modal (`openModal`, `saveModal`, `closeModal`)": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480745906
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481865741
+      }
+    ],
+    "8.8 Verify / implement task deletion": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480746005
+      }
+    ],
+    "8.10 Verify / implement localStorage load on init": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480746123
+      }
+    ],
+    "9. Checkpoint — Ensure to-do list tests pass": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480746255
+      }
+    ],
+    "10.1 Verify / implement `normaliseUrl(raw)`": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480746372
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481342699
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481851559
+      }
+    ],
+    "10.3 Verify / implement `addLink()` and input validation": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480746499
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481870027
+      }
+    ],
+    "10.4 Verify / implement `render()` for Quick Links": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480746627
+      },
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481874078
+      }
+    ],
+    "10.5 Verify / implement localStorage load on init": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480746737
+      }
+    ],
+    "11. Checkpoint — Ensure Quick Links tests pass": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480746900
+      }
+    ],
+    "12.1 Confirm execution order in `app.js`": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480747192
+      }
+    ],
+    "12.3 Run full test suite and fix any failures": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480747331
+      }
+    ],
+    "13. Final checkpoint — Cross-browser verification": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791480747453
+      }
+    ],
+    "4. Implement global utilities in `app.js`": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481239922
+      }
+    ],
+    "2. Verify and finalise HTML structure (`index.html`)": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481304156
+      }
+    ],
+    "3. Verify and finalise CSS (`css/style.css`)": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481307747
+      }
+    ],
+    "5. Implement `initClock()` IIFE in `app.js`": [
+      {
+        "executionId": "94014411-95a2-4481-a89c-35822816b17c",
+        "chatSessionId": "sess_228c88f1-3a4e-4b49-bd28-3218b59e1619",
+        "timestamp": 1791481840070
+      }
+    ]
+  }
+}
