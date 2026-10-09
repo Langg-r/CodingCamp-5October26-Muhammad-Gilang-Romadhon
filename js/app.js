@@ -168,15 +168,17 @@ function sanitise(str) {
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
-  function getGreeting(h) {
-    if (h >= 5  && h <= 11) return "Selamat Pagi 🌅";
-    if (h >= 12 && h <= 17) return "Selamat Siang ☀️";
-    if (h >= 18 && h <= 21) return "Selamat Sore 🌇";
-    return "Selamat Malam 🌙";
+  // h = jam (0-23), m = menit (0-59)
+  function getGreeting(h, m) {
+    const total = h * 60 + m; // total menit sejak tengah malam
+    if (total <= 10 * 60 + 59) return "Selamat Pagi 🌅";    // 00:00 - 10:59
+    if (total <= 14 * 60 + 59) return "Selamat Siang ☀️";   // 11:00 - 14:59
+    if (total <= 18 * 60 + 30) return "Selamat Sore 🌇";    // 15:00 - 18:30
+    return "Selamat Malam 🌙";                                // 18:31 - 23:59
   }
 
-  function buildGreeting(h) {
-    const base = getGreeting(h);
+  function buildGreeting(h, m) {
+    const base = getGreeting(h, m);
     const name = storageGet(STORAGE_KEYS.USERNAME, "");
     if (!name) return base;
     // "Selamat Pagi, Gilang 🌅"
@@ -187,7 +189,7 @@ function sanitise(str) {
     const now = new Date();
     timeEl.textContent     = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
     dateEl.textContent     = `${DAYS[now.getDay()]}, ${pad(now.getDate())} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
-    greetingEl.textContent = buildGreeting(now.getHours());
+    greetingEl.textContent = buildGreeting(now.getHours(), now.getMinutes());
   }
 
   // Refresh nama saat event dari welcome/settings
@@ -469,3 +471,4 @@ function sanitise(str) {
 
   render();
 })();
+
