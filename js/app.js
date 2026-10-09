@@ -48,36 +48,119 @@ function sanitise(str) {
 }
 
 /* =========================================================
-   THEME — Light / Dark toggle
+   THEME — terapkan sebelum apapun render agar tidak flash
    ========================================================= */
 (function initTheme() {
-  const btn  = document.getElementById("btn-theme-toggle");
-  const root = document.documentElement;
-
-  // Load saved theme or default to dark
   const saved = storageGet(STORAGE_KEYS.THEME, "dark");
-  root.setAttribute("data-theme", saved);
+  document.documentElement.setAttribute("data-theme", saved);
+})();
 
-  btn.addEventListener("click", () => {
+/* =========================================================
+   WELCOME SCREEN
+   - Tampil jika belum ada nama tersimpan
+   - Setelah konfirmasi, fade out lalu tampilkan dashboard
+   ========================================================= */
+(function initWelcome() {
+  const overlay   = document.getElementById("welcome-overlay");
+  const nameInput = document.getElementById("welcome-name-input");
+  const btnConfirm = document.getElementById("btn-welcome-confirm");
+
+  const saved = storageGet(STORAGE_KEYS.USERNAME, "");
+
+  if (saved) {
+    // Sudah pernah isi nama — langsung sembunyikan welcome screen
+    overlay.style.display = "none";
+    return;
+  }
+
+  // Tampilkan welcome screen, fokus input
+  setTimeout(() => nameInput.focus(), 300);
+
+  function confirm() {
+    const val = nameInput.value.trim();
+    if (!val) { nameInput.focus(); return; }
+    storageSet(STORAGE_KEYS.USERNAME, val);
+    // Fade out then hide
+    overlay.classList.add("fade-out");
+    overlay.addEventListener("transitionend", () => {
+      overlay.style.display = "none";
+    }, { once: true });
+    // Refresh greeting
+    const greetingEl = document.getElementById("greeting-text");
+    if (greetingEl) greetingEl.dispatchEvent(new Event("refresh-name"));
+  }
+
+  btnConfirm.addEventListener("click", confirm);
+  nameInput.addEventListener("keydown", e => { if (e.key === "Enter") confirm(); });
+})();
+
+/* =========================================================
+   SETTINGS MODAL
+   - Buka via tombol ⚙️ di pojok kanan atas header
+   - Isi: edit nama + pilih tema dark/light
+   ========================================================= */
+(function initSettings() {
+  const overlay       = document.getElementById("settings-overlay");
+  const btnOpen       = document.getElementById("btn-settings-open");
+  const btnClose      = document.getElementById("btn-settings-close");
+  const nameInput     = document.getElementById("settings-name-input");
+  const btnNameSave   = document.getElementById("btn-settings-name-save");
+  const btnDark       = document.getElementById("btn-theme-dark");
+  const btnLight      = document.getElementById("btn-theme-light");
+  const root          = document.documentElement;
+
+  function syncThemeButtons() {
     const current = root.getAttribute("data-theme");
-    const next    = current === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    storageSet(STORAGE_KEYS.THEME, next);
-  });
+    btnDark.classList.toggle("active",  current === "dark");
+    btnLight.classList.toggle("active", current === "light");
+    btnDark.setAttribute("aria-pressed",  String(current === "dark"));
+    btnLight.setAttribute("aria-pressed", String(current === "light"));
+  }
+
+  function openSettings() {
+    nameInput.value = storageGet(STORAGE_KEYS.USERNAME, "");
+    syncThemeButtons();
+    overlay.classList.add("open");
+    setTimeout(() => nameInput.focus(), 50);
+  }
+
+  function closeSettings() {
+    overlay.classList.remove("open");
+  }
+
+  function setTheme(val) {
+    root.setAttribute("data-theme", val);
+    storageSet(STORAGE_KEYS.THEME, val);
+    syncThemeButtons();
+  }
+
+  function saveName() {
+    const val = nameInput.value.trim();
+    storageSet(STORAGE_KEYS.USERNAME, val);
+    // Trigger greeting refresh
+    document.getElementById("greeting-text").dispatchEvent(new Event("refresh-name"));
+    closeSettings();
+  }
+
+  btnOpen.addEventListener("click", openSettings);
+  btnClose.addEventListener("click", closeSettings);
+  overlay.addEventListener("click", e => { if (e.target === overlay) closeSettings(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && overlay.classList.contains("open")) closeSettings(); });
+
+  btnNameSave.addEventListener("click", saveName);
+  nameInput.addEventListener("keydown", e => { if (e.key === "Enter") saveName(); });
+
+  btnDark.addEventListener("click",  () => setTheme("dark"));
+  btnLight.addEventListener("click", () => setTheme("light"));
 })();
 
 /* =========================================================
    GREETING & CLOCK
    ========================================================= */
 (function initClock() {
-  const greetingEl  = document.getElementById("greeting-text");
-  const timeEl      = document.getElementById("current-time");
-  const dateEl      = document.getElementById("current-date");
-  const btnEditName = document.getElementById("btn-edit-name");
-  const nameOverlay = document.getElementById("name-modal-overlay");
-  const nameInput   = document.getElementById("name-modal-input");
-  const btnSave     = document.getElementById("btn-name-save");
-  const btnCancel   = document.getElementById("btn-name-cancel");
+  const greetingEl = document.getElementById("greeting-text");
+  const timeEl     = document.getElementById("current-time");
+  const dateEl     = document.getElementById("current-date");
 
   const DAYS   = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   const MONTHS = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
@@ -95,72 +178,43 @@ function sanitise(str) {
   function buildGreeting(h) {
     const base = getGreeting(h);
     const name = storageGet(STORAGE_KEYS.USERNAME, "");
-    // e.g. "Selamat Pagi, Gilang 🌅"  or just "Selamat Pagi 🌅"
     if (!name) return base;
-    // Insert name before the emoji: "Selamat Pagi, Gilang 🌅"
+    // "Selamat Pagi, Gilang 🌅"
     return base.replace(/(\s[\p{Emoji}]+)$/u, `, ${sanitise(name)}$1`);
   }
 
   function tick() {
     const now = new Date();
-    timeEl.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-    dateEl.textContent = `${DAYS[now.getDay()]}, ${pad(now.getDate())} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+    timeEl.textContent     = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    dateEl.textContent     = `${DAYS[now.getDay()]}, ${pad(now.getDate())} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
     greetingEl.textContent = buildGreeting(now.getHours());
   }
 
+  // Refresh nama saat event dari welcome/settings
+  greetingEl.addEventListener("refresh-name", () => tick());
+
   tick();
   setInterval(tick, 1000);
-
-  /* --- Edit name modal --- */
-  function openNameModal() {
-    const saved = storageGet(STORAGE_KEYS.USERNAME, "");
-    nameInput.value = saved;
-    nameOverlay.classList.add("open");
-    setTimeout(() => { nameInput.focus(); nameInput.select(); }, 50);
-  }
-
-  function closeNameModal() {
-    nameOverlay.classList.remove("open");
-  }
-
-  function saveNameModal() {
-    const val = nameInput.value.trim();
-    storageSet(STORAGE_KEYS.USERNAME, val); // save even if empty (clears name)
-    closeNameModal();
-    tick(); // refresh greeting immediately
-  }
-
-  btnEditName.addEventListener("click", openNameModal);
-  btnSave.addEventListener("click", saveNameModal);
-  btnCancel.addEventListener("click", closeNameModal);
-  nameOverlay.addEventListener("click", e => { if (e.target === nameOverlay) closeNameModal(); });
-  nameInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") saveNameModal();
-    if (e.key === "Escape") closeNameModal();
-  });
 })();
 
 /* =========================================================
    FOCUS TIMER
    ========================================================= */
 (function initTimer() {
-  const displayEl   = document.getElementById("timer-display");
-  const labelEl     = document.getElementById("timer-label");
-  const btnStart    = document.getElementById("btn-start");
-  const btnStop     = document.getElementById("btn-stop");
-  const btnReset    = document.getElementById("btn-reset");
+  const displayEl     = document.getElementById("timer-display");
+  const labelEl       = document.getElementById("timer-label");
+  const btnStart      = document.getElementById("btn-start");
+  const btnStop       = document.getElementById("btn-stop");
+  const btnReset      = document.getElementById("btn-reset");
   const durationInput = document.getElementById("pomodoro-duration");
-  const btnSetDur   = document.getElementById("btn-set-duration");
+  const btnSetDur     = document.getElementById("btn-set-duration");
 
-  // Load saved duration (minutes), default 25
-  let timerMinutes = storageGet(STORAGE_KEYS.POMODORO_MINUTES, 25);
+  let timerMinutes   = storageGet(STORAGE_KEYS.POMODORO_MINUTES, 25);
   let TIMER_DURATION = timerMinutes * 60;
+  let remaining      = TIMER_DURATION;
+  let intervalId     = null;
+  let isRunning      = false;
 
-  let remaining  = TIMER_DURATION;
-  let intervalId = null;
-  let isRunning  = false;
-
-  // Sync input field to saved value
   durationInput.value = timerMinutes;
 
   function pad(n) { return String(n).padStart(2, "0"); }
@@ -188,8 +242,6 @@ function sanitise(str) {
 
     btnStart.disabled = isRunning || remaining === 0;
     btnStop.disabled  = !isRunning;
-    btnStart.style.opacity = btnStart.disabled ? "0.4" : "1";
-    btnStop.style.opacity  = btnStop.disabled  ? "0.4" : "1";
   }
 
   function tick() {
@@ -205,23 +257,18 @@ function sanitise(str) {
     render();
   }
 
-  /* --- Set custom duration --- */
   function applyDuration() {
     const val = parseInt(durationInput.value, 10);
     if (isNaN(val) || val < 1 || val > 99) {
-      // Reset input to current valid value
       durationInput.value = timerMinutes;
       return;
     }
-    // Stop timer if running
     clearInterval(intervalId);
-    intervalId = null;
-    isRunning  = false;
-
+    intervalId     = null;
+    isRunning      = false;
     timerMinutes   = val;
     TIMER_DURATION = val * 60;
     remaining      = TIMER_DURATION;
-
     storageSet(STORAGE_KEYS.POMODORO_MINUTES, timerMinutes);
     render();
   }
@@ -229,7 +276,6 @@ function sanitise(str) {
   btnSetDur.addEventListener("click", applyDuration);
   durationInput.addEventListener("keydown", e => { if (e.key === "Enter") applyDuration(); });
 
-  /* --- Timer controls --- */
   btnStart.addEventListener("click", () => {
     if (isRunning || remaining === 0) return;
     isRunning  = true;
@@ -276,14 +322,9 @@ function sanitise(str) {
 
   function render() {
     listEl.innerHTML = "";
-
-    if (todos.length === 0) {
-      emptyEl.style.display = "block";
-      return;
-    }
+    if (todos.length === 0) { emptyEl.style.display = "block"; return; }
     emptyEl.style.display = "none";
 
-    // Active tasks first, completed at bottom
     const sorted = [...todos].sort((a, b) => {
       if (a.done === b.done) return 0;
       return a.done ? 1 : -1;
@@ -298,22 +339,19 @@ function sanitise(str) {
         <input type="checkbox" class="todo-checkbox" aria-label="Tandai tugas selesai" ${todo.done ? "checked" : ""} />
         <span class="todo-text">${sanitise(todo.text)}</span>
         <div class="todo-actions">
-          <button class="btn-icon btn-edit"   title="Edit"   aria-label="Edit tugas">&#9998;</button>
-          <button class="btn-icon btn-delete" title="Hapus"  aria-label="Hapus tugas">&#128465;</button>
+          <button class="btn-icon btn-edit"   title="Edit"  aria-label="Edit tugas">&#9998;</button>
+          <button class="btn-icon btn-delete" title="Hapus" aria-label="Hapus tugas">&#128465;</button>
         </div>
       `;
 
-      li.querySelector(".todo-checkbox").addEventListener("change", (e) => {
+      li.querySelector(".todo-checkbox").addEventListener("change", e => {
         const item = todos.find(t => t.id === todo.id);
         if (item) { item.done = e.target.checked; save(); render(); }
       });
-
       li.querySelector(".btn-edit").addEventListener("click", () => openModal(todo.id, todo.text));
-
       li.querySelector(".btn-delete").addEventListener("click", () => {
         todos = todos.filter(t => t.id !== todo.id);
-        save();
-        render();
+        save(); render();
       });
 
       listEl.appendChild(li);
@@ -324,8 +362,7 @@ function sanitise(str) {
     const text = inputEl.value.trim();
     if (!text) { inputEl.focus(); return; }
     todos.push({ id: uid(), text, done: false });
-    save();
-    render();
+    save(); render();
     inputEl.value = "";
     inputEl.focus();
   }
@@ -340,10 +377,7 @@ function sanitise(str) {
     setTimeout(() => { modalInput.focus(); modalInput.select(); }, 50);
   }
 
-  function closeModal() {
-    overlayEl.classList.remove("open");
-    editingId = null;
-  }
+  function closeModal() { overlayEl.classList.remove("open"); editingId = null; }
 
   function saveModal() {
     const newText = modalInput.value.trim();
@@ -378,11 +412,7 @@ function sanitise(str) {
 
   function render() {
     gridEl.innerHTML = "";
-
-    if (links.length === 0) {
-      emptyEl.style.display = "block";
-      return;
-    }
+    if (links.length === 0) { emptyEl.style.display = "block"; return; }
     emptyEl.style.display = "none";
 
     links.forEach(link => {
@@ -395,12 +425,10 @@ function sanitise(str) {
       anchor.setAttribute("aria-label", "Buka " + sanitise(link.name));
 
       const faviconSrc = "https://www.google.com/s2/favicons?sz=16&domain_url=" + encodeURIComponent(link.url);
-
       anchor.innerHTML = `
         <img src="${faviconSrc}" alt="" width="14" height="14"
           style="border-radius:2px;flex-shrink:0"
-          onerror="this.style.display='none'"
-        />
+          onerror="this.style.display='none'" />
         ${sanitise(link.name)}
         <button class="link-chip-delete" title="Hapus" aria-label="Hapus ${sanitise(link.name)}">&#10005;</button>
       `;
@@ -408,8 +436,7 @@ function sanitise(str) {
       anchor.querySelector(".link-chip-delete").addEventListener("click", e => {
         e.preventDefault();
         links = links.filter(l => l.id !== link.id);
-        save();
-        render();
+        save(); render();
       });
 
       gridEl.appendChild(anchor);
@@ -430,8 +457,7 @@ function sanitise(str) {
     if (!name) { nameInputEl.focus(); return; }
     if (!url)  { urlInputEl.focus();  return; }
     links.push({ id: uid(), name, url });
-    save();
-    render();
+    save(); render();
     nameInputEl.value = "";
     urlInputEl.value  = "";
     nameInputEl.focus();

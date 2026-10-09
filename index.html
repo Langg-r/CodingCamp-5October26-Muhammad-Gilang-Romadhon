@@ -8,22 +8,69 @@
 </head>
 <body>
 
-  <!-- ===== GREETING SECTION ===== -->
-  <header class="greeting-section">
-
-    <!-- Theme toggle -->
-    <button class="btn-theme-toggle" id="btn-theme-toggle" aria-label="Ganti tema terang/gelap" title="Ganti tema">
-      <span class="icon-dark" aria-hidden="true">🌙</span>
-      <span class="icon-light" aria-hidden="true">☀️</span>
-    </button>
-
-    <div class="greeting-inner">
-      <!-- Klik nama untuk edit -->
-      <p id="greeting-text" class="greeting-text">Selamat Datang!</p>
-      <button class="btn-edit-name" id="btn-edit-name" title="Ubah nama">
-        <span aria-hidden="true">✏️</span>
-        <span class="sr-only">Ubah nama</span>
+  <!-- ===== WELCOME SCREEN (tampil di awal jika belum ada nama) ===== -->
+  <div class="welcome-overlay" id="welcome-overlay" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+    <div class="welcome-glass">
+      <div class="welcome-icon" aria-hidden="true">✨</div>
+      <h1 class="welcome-title" id="welcome-title">Selamat Datang!</h1>
+      <p class="welcome-subtitle">Siapa nama kamu?</p>
+      <label for="welcome-name-input" class="sr-only">Nama kamu</label>
+      <input
+        type="text"
+        id="welcome-name-input"
+        class="welcome-input"
+        placeholder="Masukkan namamu..."
+        maxlength="30"
+        autocomplete="given-name"
+      />
+      <button class="welcome-btn" id="btn-welcome-confirm">
+        Mulai Dashboard →
       </button>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS MODAL ===== -->
+  <div class="modal-overlay" id="settings-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <article class="modal settings-modal">
+      <h3 class="modal-title" id="settings-title">⚙️ Pengaturan</h3>
+
+      <div class="settings-section">
+        <p class="settings-label">Nama</p>
+        <div class="settings-row">
+          <label for="settings-name-input" class="sr-only">Nama kamu</label>
+          <input type="text" id="settings-name-input" class="text-input" placeholder="Nama kamu..." maxlength="30" autocomplete="given-name" />
+          <button class="btn btn-primary btn-sm" id="btn-settings-name-save">Simpan</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <p class="settings-label">Tema</p>
+        <div class="settings-theme-row" role="group" aria-label="Pilih tema">
+          <button class="theme-option" id="btn-theme-dark" data-theme-val="dark" aria-pressed="true">
+            <span aria-hidden="true">🌙</span> Gelap
+          </button>
+          <button class="theme-option" id="btn-theme-light" data-theme-val="light" aria-pressed="false">
+            <span aria-hidden="true">☀️</span> Terang
+          </button>
+        </div>
+      </div>
+
+      <footer class="modal-actions">
+        <button class="btn btn-ghost" id="btn-settings-close">Tutup</button>
+      </footer>
+    </article>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="greeting-section">
+    <button class="btn-settings" id="btn-settings-open" aria-label="Buka pengaturan" title="Pengaturan">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+    <div class="greeting-inner">
+      <p id="greeting-text" class="greeting-text">Selamat Datang!</p>
       <time id="current-time" class="current-time" aria-live="polite">00:00:00</time>
       <p id="current-date" class="current-date"></p>
     </div>
@@ -32,7 +79,7 @@
   <!-- ===== MAIN CONTENT ===== -->
   <main class="dashboard">
 
-    <!-- ===== FOCUS TIMER ===== -->
+    <!-- FOCUS TIMER -->
     <section class="card timer-card" aria-labelledby="timer-heading">
       <h2 class="card-title" id="timer-heading">
         <span aria-hidden="true">⏱</span> Focus Timer
@@ -40,11 +87,10 @@
       <output id="timer-display" class="timer-display" aria-live="off">25:00</output>
       <p class="timer-label" id="timer-label" aria-live="polite">Siap fokus?</p>
       <div class="timer-controls" role="group" aria-label="Kontrol timer">
-        <button class="btn btn-primary" id="btn-start">Start</button>
-        <button class="btn btn-secondary" id="btn-stop">Stop</button>
+        <button class="btn btn-start" id="btn-start">Start</button>
+        <button class="btn btn-stop"  id="btn-stop">Stop</button>
         <button class="btn btn-ghost" id="btn-reset">Reset</button>
       </div>
-      <!-- Atur durasi pomodoro -->
       <div class="timer-duration-row" role="group" aria-label="Atur durasi">
         <label for="pomodoro-duration" class="timer-duration-label">Durasi (menit):</label>
         <input type="number" id="pomodoro-duration" class="text-input timer-duration-input"
@@ -53,21 +99,21 @@
       </div>
     </section>
 
-    <!-- ===== TO-DO LIST ===== -->
+    <!-- DAFTAR TUGAS HARI INI -->
     <section class="card todo-card" aria-labelledby="todo-heading">
       <h2 class="card-title" id="todo-heading">
-        <span aria-hidden="true">✅</span> To-Do List
+        <span aria-hidden="true">✅</span> Daftar Tugas Hari Ini
       </h2>
       <div class="todo-input-row" role="group" aria-label="Tambah tugas">
         <label for="todo-input" class="sr-only">Tugas baru</label>
         <input type="text" id="todo-input" class="text-input" placeholder="Tambah tugas baru..." maxlength="120" autocomplete="off" />
         <button class="btn btn-primary" id="btn-add-todo">Tambah</button>
       </div>
-      <ul class="todo-list" id="todo-list" aria-label="Daftar tugas"></ul>
+      <ul class="todo-list" id="todo-list" aria-label="Daftar tugas hari ini"></ul>
       <p class="todo-empty" id="todo-empty" aria-live="polite">Belum ada tugas. Tambahkan di atas!</p>
     </section>
 
-    <!-- ===== QUICK LINKS ===== -->
+    <!-- QUICK LINKS -->
     <section class="card links-card" aria-labelledby="links-heading">
       <h2 class="card-title" id="links-heading">
         <span aria-hidden="true">🔗</span> Quick Links
@@ -85,6 +131,11 @@
 
   </main>
 
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <p class="footer-copy">© 2026 M.Gilang &middot; Dashboard Web</p>
+  </footer>
+
   <!-- ===== EDIT TASK MODAL ===== -->
   <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <article class="modal">
@@ -93,20 +144,7 @@
       <input type="text" id="modal-input" class="text-input" maxlength="120" />
       <footer class="modal-actions">
         <button class="btn btn-primary" id="btn-modal-save">Simpan</button>
-        <button class="btn btn-ghost" id="btn-modal-cancel">Batal</button>
-      </footer>
-    </article>
-  </div>
-
-  <!-- ===== EDIT NAME MODAL ===== -->
-  <div class="modal-overlay" id="name-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="name-modal-title">
-    <article class="modal">
-      <h3 class="modal-title" id="name-modal-title">Ubah Nama</h3>
-      <label for="name-modal-input" class="sr-only">Nama kamu</label>
-      <input type="text" id="name-modal-input" class="text-input" placeholder="Masukkan namamu..." maxlength="30" autocomplete="given-name" />
-      <footer class="modal-actions">
-        <button class="btn btn-primary" id="btn-name-save">Simpan</button>
-        <button class="btn btn-ghost" id="btn-name-cancel">Batal</button>
+        <button class="btn btn-ghost"   id="btn-modal-cancel">Batal</button>
       </footer>
     </article>
   </div>
