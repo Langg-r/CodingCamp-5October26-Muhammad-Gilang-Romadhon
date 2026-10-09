@@ -260,7 +260,8 @@ body {
 .greeting-section {
   background: var(--header-bg);
   border-bottom: 1px solid var(--border);
-  padding: 2.5rem 2rem 2rem;
+  /* padding simetris kiri-kanan supaya greeting-inner benar-benar center */
+  padding: 2.5rem 3.5rem 2rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -278,9 +279,13 @@ body {
 .greeting-inner { position: relative; z-index: 1; }
 
 .greeting-text {
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  display: block;
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
   font-weight: 700;
   letter-spacing: -0.02em;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
   margin-bottom: 0.3rem;
 }
 
@@ -633,7 +638,7 @@ body {
    RESPONSIVE
    ========================================================= */
 @media (max-width: 480px) {
-  .greeting-section { padding: 1.75rem 1rem 1.5rem; }
+  .greeting-section { padding: 1.75rem 3rem 1.5rem; } /* simetris, ruang untuk btn settings */
   .dashboard { padding: 0 1rem; gap: 1rem; }
   .card { padding: 1.25rem; }
   .links-input-row { flex-direction: column; }
@@ -656,4 +661,8 @@ body {
   white-space: nowrap;
   border: 0;
 }
+
+
+
+
 
